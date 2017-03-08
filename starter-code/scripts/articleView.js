@@ -1,16 +1,26 @@
 //  Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
+//this makes an object called articleView
 var articleView = {};
 
-
+// this add a method of populateFilters to the articleView object
 articleView.populateFilters = function() {
+  //this selects the article element in the document that doesnt have a class of template and loops throught each one with a function
   $('article').not('.template').each(function() {
+    //this makes three variables
     var authorName, category, optionTag;
+    //this sets the authorName to the text of the anchor element of the object that is acting on
     authorName = $(this).find('address a').text();
+    //this sets the optionTag variable to this string
     optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
+    // this get an element with id of authorfilter and appends whats in option tag
     $('#author-filter').append(optionTag);
+    // it gets the target elements attribute of data category
     category = $(this).attr('data-category');
+    // resuses optionTag variable to use category
     optionTag = '<option value="' + category + '">' + category + '</option>';
+    // if nothing there it puts something there
     if ($('#category-filter option[value="' + category + '"]').length === 0) {
+      // it appends the object with the value of option tag
       $('#category-filter').append(optionTag);
     }
   });
@@ -19,6 +29,10 @@ articleView.populateFilters = function() {
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
+      var $author_name = $(this).val();
+      $('article').hide();
+      $('[data-author="'+$author_name +'"]').show();
+
       /* TODO: If the select box changes to an option that has a value, we should:
           1. Hide all of the articles
           2. Fade in only the articles that match based on on the author
@@ -64,3 +78,5 @@ articleView.setTeasers = function() {
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
+articleView.populateFilters();
+articleView.handleAuthorFilter();
