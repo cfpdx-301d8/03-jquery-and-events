@@ -25,9 +25,15 @@ articleView.handleAuthorFilter = function() {
             that was aselected. Hint: use an attribute selector to find
             those articles that match the value, and then fade them in.
         */
+      $('article').hide();
+      // $('article').attr('author-data').val($(this).val()).fadeIn();
+      var $turtle = $('article[data-author="' + $(this).val() + '"]').fadeIn();
+      console.log('does this work?', $turtle);
     } else {
     /* Otherwise, we should:
         1. Show all the articles except the template */
+
+
     }
     $('#category-filter').val('');
   });
@@ -41,11 +47,22 @@ articleView.handleCategoryFilter = function() {
 
 articleView.handleMainNav = function () {
   $('.main-nav').on('click', '.tab', function() {
-    /* TODO:
+    /* done TODO:
       1. Hide all of the .tab-content sections
+      
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    var $dataGrab = $(this).attr('data-content');
+    console.log($dataGrab);
+
+    $('section[class=tab-content]').hide();
+    var $tryAgain = $('section[id=' + $dataGrab + ']');
+    console.log($tryAgain);
+    $tryAgain.fadeIn();
+
+
+
   });
   $('.main-nav .tab:first').click();
 };
@@ -64,3 +81,6 @@ articleView.setTeasers = function() {
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
+articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleMainNav();
