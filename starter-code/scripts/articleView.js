@@ -70,7 +70,7 @@ articleView.handleMainNav = function () {
     $('.tab-content').hide();
     var $clickedTab = $(this).attr('data-content');
     $('#' + $clickedTab).fadeIn(1000);
-    /* TODO:
+    /* DONE TODO:
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
@@ -82,7 +82,16 @@ articleView.handleMainNav = function () {
 articleView.setTeasers = function() {
   // Truncate logic to show only first two elements within the article body.
   $('.article-body *:nth-of-type(n+2)').hide();
-  /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
+  $('.read-on').on('click', function() {
+    if(this.text === 'Read on') {
+      $(this).parent().find('.article-body *:nth-of-type(n+2)').show();
+      $(this).text('Show Less');
+    } else {
+      $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
+      $(this).text('Read on');
+    }
+  });
+  /* DONE TODO: Add a delegated event handler to reveal the remaining paragraphs.
     When a .read-on link is clicked, we can:
     1. Prevent the default action of a link.
     2. Reveal everything in that particular article now.
@@ -92,8 +101,9 @@ articleView.setTeasers = function() {
   */
 };
 
-// TODO: Invoke all of the above functions (I mean, methods!):
+// DONE TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers();
